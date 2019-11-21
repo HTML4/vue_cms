@@ -2,6 +2,10 @@ import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
+const rolesType = {
+  0: ['admin'],
+  1: ['edit']
+}
 const state = {
   token: getToken(),
   name: '',
@@ -54,18 +58,20 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar, introduction } = data
+        const { role, username } = data
 
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
+        if (role === null) {
           reject('getInfo: roles must be a non-null array!')
         }
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+        commit('SET_ROLES', rolesType[role])
+        commit('SET_NAME', username)
+        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+        commit('SET_INTRODUCTION', 'I am a super administrator')
+        resolve({
+          roles: rolesType[role]
+        })
       }).catch(error => {
         reject(error)
       })
