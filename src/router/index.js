@@ -72,7 +72,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'dashboard', affix: true }
       }
     ]
   }
@@ -83,6 +83,18 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/category',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/category/index'),
+        name: 'category',
+        meta: { title: '分类', icon: 'list', affix: true }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
