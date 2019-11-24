@@ -95,6 +95,18 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/article',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/article/index'),
+        name: 'article',
+        meta: { title: '内容管理', icon: 'list', affix: true }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
